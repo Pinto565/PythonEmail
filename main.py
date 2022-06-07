@@ -2144,29 +2144,29 @@ html_content = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 
 df = pd.read_csv('list.csv')
 
-def send_mail(name,r_mail,image):
-    s_mail = "#"
+def send_mail(r_mail):
+    s_mail = "pattarai@licet.ac.in"
     s_pass = "#"
     msg=EmailMessage()
-    msg['Subject'] = f"Certificate For ReactJS WorkShop"
-    msg['From'] = s_mail
+    msg['Subject'] = f" -- Your Subject Goes Here... -- "
+    msg['From'] = "Pattarai"
     msg['To'] = r_mail
     msg.set_content(html_content,subtype="html")
-    with open(image,"rb") as file:
-        data = file.read()
-        msg.add_attachment(data,maintype = "application", subtype = "pdf",filename = name)
+    # with open(image,"rb") as file:
+    #     data = file.read()
+    #     msg.add_attachment(data,maintype = "application", subtype = "pdf",filename = name)
     server = smtplib.SMTP_SSL("smtp.gmail.com",465)
     try:
         server.login(s_mail,s_pass)
         print("Logged In Successfully")
         server.send_message(msg)
-        print("Mail Sent")
+        print("Mail Sent to " + r_mail)
         server.quit()
     except:
         print("Mail Not Sent")
 
 for index,j in df.iterrows():
-    Name = j["Name"]
+    # Name = j["Name"]
     Email = j["Email"]
-    Image = f"Certificate-PDF/{Name}.pdf"
-    send_mail(Name , Email,Image)
+    # Image = f"Certificate-PDF/{Name}.pdf"
+    send_mail(Email)
